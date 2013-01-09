@@ -1,0 +1,25 @@
+.row{display:block; zoom:1;}
+.row:after{visibility:hidden; display:block; content:""; clear:both; height:0;}
+.row .row{margin-left:-0.83333333333333%; margin-right:-0.83333333333333%;}
+.columns.one {width:6.6666666666667%; *width:5.6666666666667%;}
+.columns.two {width:15%; *width:14%;}
+.columns.three {width:23.333333333333%; *width:22.333333333333%;}
+.columns.four {width:31.666666666667%; *width:30.666666666667%;}
+.columns.five {width:40%; *width:39%;}
+.columns.six {width:48.333333333333%; *width:47.333333333333%;}
+.columns.seven {width:56.666666666667%; *width:55.666666666667%;}
+.columns.eight {width:65%; *width:64%;}
+.columns.nine {width:73.333333333333%; *width:72.333333333333%;}
+.columns.ten {width:81.666666666667%; *width:80.666666666667%;}
+.columns.eleven {width:90%; *width:89;}
+.columns {margin-left:0.83333333333333%; margin-right:0.83333333333333%; min-height:1px; float:left; display:block;}
+.columns.twelve {width:100%; margin:0;}
+@media only screen and (max-width: 767px){
+	.row .columns{width:100%; float:none;}
+	.row div[class*='mobile-']{float:left;}
+	.columns.mobile-one {width:23.333333333333%;}
+	.columns.mobile-two {width:48.333333333333%;}
+	.columns.mobile-three {width:73.333333333333%;}
+	.columns.mobile-four {width:98.333333333333%;}
+}
+img, object, embed {max-width:100%; height:auto;}
