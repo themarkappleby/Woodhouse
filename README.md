@@ -75,7 +75,7 @@ For more info on working with Sass visit the [Sass Tutorial](http://sass-lang.co
 
 ---
 
-###Working with Parameters
+##Working with Parameters
 
 Woodhouse has a number of paramaters availabe that allow you to tweak it to fit your exact needs. If you'd like to modify any Woodhouse parameters be sure to do so in your Sass file that imports Woodhouse rather than modifing the paramaters in "_woodhouse.scss" directly. For example, if you'd like the maximum width to be 960px instead of the default 1200px you would set the parameter before you import Woodhouse, as follows:
 
@@ -84,7 +84,7 @@ $wh-max-width: 960px;
 @import 'woodhouse';
 ```
 
-##Available Parameters
+###Available Parameters
 
 **$wh-breakpoint-names: palm, lap, desk !default;**
 
