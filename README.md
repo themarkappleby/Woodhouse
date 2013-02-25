@@ -1,6 +1,6 @@
 #Woodhouse
 
-Sass Grid Generator Extrodinaire.
+Sass Grid Generator Extrodinaire
 
 ---
 
@@ -75,7 +75,7 @@ For more info on working with Sass visit the [Sass Tutorial](http://sass-lang.co
 
 ---
 
-##Working with Parameters
+###Working with Parameters
 
 Woodhouse has a number of paramaters availabe that allow you to tweak it to fit your exact needs. If you'd like to modify any Woodhouse parameters be sure to do so in your Sass file that imports Woodhouse rather than modifing the paramaters in "_woodhouse.scss" directly. For example, if you'd like the maximum width to be 960px instead of the default 1200px you would set the parameter before you import Woodhouse, as follows:
 
@@ -87,36 +87,69 @@ $wh-max-width: 960px;
 ##Available Parameters
 
 **$wh-breakpoint-names: palm, lap, desk !default;**
+
 **name:** wh-breakpoint-names
+
 **info:** a comma separated list of your breakpoint names. As other woodhouse classes will use these names as a prefix ensure that none begin with numbers.
+
 **type:** comma separated strings
 
+---
+
 **$wh-breakpoints: 0px, 480px, 850px !default;**
+
 **name:** wh-breakpoints
+
 **info:** a comma separated list of your breakpoint values. Though not required it is highly recommended that the first value be 0. It is important to ensure that both wh-breakpoint-names and wh-breakpoints contain the same number of values.
+
 **type:** comma separated values
 
+---
+
 **$wh-fractions: 4 !default;**
+
 **name:** wh-fractions
+
 **info:** represents the smallest fractions Woodhouse will accommodate. For example at 4 Woodhouse will handle up to and including quarter units. Larger numbers will allow for more granular grids but will result in larger files.
+
 **type:** integer 
 
+---
+
 **$wh-gutter: 2% !default;**
+
 **name:** wh-gutter
+
 **info:** the size of the gutters (space between grid sections). 
+
 **type:** percentage
 
+---
+
 **$wh-max-width: 1200px !default;**
+
 **name:** wh-max-width
+
 **info:** the max width of your website. This width is applied to the container. 
+
 **type:** pixels
 
+---
+
 **$wh-group-name: group !default;**
+
 **name:** wh-group-name
+
 **info:** the class name to use for the group element. 
+
 **type:** string
 
+---
+
 **$wh-container-name: container !default;**
+
 **name:** wh-container-name
+
 **info:** the class name to use for the container element. 
+
 **type:** string
