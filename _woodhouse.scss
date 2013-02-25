@@ -1,0 +1,185 @@
+// ----------------------------------------------------------------------------
+// ----------------------- Woodhouse - Sass Grid System -----------------------
+// ----------------------------------------------------------------------------
+
+$wh-breakpoint-names: palm, lap, desk !default;
+// name: wh-breakpoint-names
+// info: a comma separated list of your breakpoint names. As other woodhouse classes
+//       will use these names as a prefix ensure that none begin with numbers.
+// type: comma separated strings
+
+$wh-breakpoints: 0px, 480px, 850px !default;
+// name: wh-breakpoints
+// info: a comma separated list of your breakpoint values. Though not required it is
+//       highly recommended that the first value be 0. It is important to ensure that
+//       both wh-breakpoint-names and wh-breakpoints contain the same number of values.
+// type: comma separated values
+
+$wh-fractions: 4 !default;
+// name: wh-fractions
+// info: represents the smallest fractions Woodhouse will accommodate. For example at 4
+//       Woodhouse will handle up to and including quarter units. Larger numbers will allow
+//       for more granular grids but will result in larger files.
+// type: integer 
+
+$wh-gutter: 2% !default;
+// name: wh-gutter
+// info: the size of the gutters (space between grid sections). 
+// type: percentage
+
+$wh-max-width: 1200px !default;
+// name: wh-max-width
+// info: the max width of your website. This width is applied to the container. 
+// type: pixels
+
+$wh-group-name: group !default;
+// name: wh-group-name
+// info: the class name to use for the group element. 
+// type: string
+
+$wh-container-name: container !default;
+// name: wh-container-name
+// info: the class name to use for the container element. 
+// type: string
+
+// ----------------------------------------------------------------------------
+
+// generator variables
+$wh-breakpoint-name: '';
+$wh-breakpoint-counter: 0;
+$wh-fraction-counter: 0;
+$wh-fraction-inside-counter: 0;
+$wh-fraction-tracker: '';
+
+// mixin to generate a single grid
+@mixin wh-generate-grid{
+
+	// reset fraction counter
+	$wh-fraction-counter: 0;
+
+	// loop through fractions
+	@while $wh-fraction-counter < $wh-fractions{
+
+		// increment fraction counter
+		$wh-fraction-counter: $wh-fraction-counter + 1;
+
+		// reset inside counter
+		$wh-fraction-inside-counter: 1;
+
+		// loop through inner fractions (1/3, 2/3, 3/3)
+		@while $wh-fraction-inside-counter <= $wh-fraction-counter{
+
+			// exclude whole fractions except 1-1 (2-2, 3-3, 4-4)
+			@if $wh-fraction-inside-counter < $wh-fraction-counter or $wh-fraction-counter == 1{
+
+				// define fraction
+				$wh-fraction-name: '.#{$wh-breakpoint-name}-#{$wh-fraction-inside-counter}-#{$wh-fraction-counter}';
+				#{$wh-fraction-name}{
+					$wh-fraction-width: ($wh-fraction-inside-counter / $wh-fraction-counter * 100%) - $wh-gutter;
+					width: $wh-fraction-width;
+					*width: $wh-fraction-width - 1;
+				}
+
+				// add current fraction to tracker
+				$wh-fraction-tracker: $wh-fraction-tracker + $wh-fraction-name + ', ';
+			}
+
+			// increment inside counter
+			$wh-fraction-inside-counter: $wh-fraction-inside-counter + 1;
+		}
+	}
+}
+
+// show after breakpoint
+@mixin show-on{
+	.#{$wh-breakpoint-name}-show{
+		display: block;
+	}
+}
+
+// show before breakpoint
+@mixin hide-on{
+	.#{$wh-breakpoint-name}-hide{
+		display: block;
+	}
+}
+
+// hide before breakpoint
+@mixin show-off{
+	.#{$wh-breakpoint-name}-show{
+		display: none;
+	}
+}
+
+// hide after breakpoint
+@mixin hide-off{
+	.#{$wh-breakpoint-name}-hide{
+		display: none;
+	}
+}
+
+// generate a grid for each breakpoint
+@each $wh-breakpoint in $wh-breakpoints{
+	// set current breakpoint name
+	$wh-breakpoint-name: nth($wh-breakpoint-names, ($wh-breakpoint-counter + 1));
+
+	// if the breakpoint IS 0, DO NOT use a media query
+	@if $wh-breakpoint == 0{
+		@include wh-generate-grid;
+		@include show-on;
+		@include hide-off;
+
+		// temporarily fetch second breakpoint
+		$wh-breakpoint: nth($wh-breakpoints, 2);
+	}
+
+	// if the breakpoint IS NOT 0, DO use a media query
+	@else{
+		@media (min-width: #{$wh-breakpoint}){
+			@include wh-generate-grid;
+			@include show-on;
+			@include hide-off;
+		}	
+
+	}
+
+	// handle max-width media queries
+	@media (max-width: #{$wh-breakpoint}){
+		@include show-off;
+		@include hide-on;
+	}
+
+	// increment breakpoint counter
+	$wh-breakpoint-counter: $wh-breakpoint-counter + 1;	
+}
+
+// fractions styling
+#{$wh-fraction-tracker}{
+	margin: 0 #{$wh-gutter/2};
+	float: left;
+	min-height: 1px;
+	display: block;
+}
+
+// row styling 
+.#{$wh-group-name}{
+	display:block;
+	zoom:1;
+	margin: 0 #{$wh-gutter/2*-1};
+	&:after {
+		visibility:hidden;
+		display:block;
+		content:"";
+		clear:both;
+		height:0;
+	}
+}
+
+// container styling
+.#{$wh-container-name}{
+	margin: 0 auto;
+	max-width: #{$wh-max-width};
+}
+
+// media styling 
+img, object, embed {max-width:100%; height:auto;}
